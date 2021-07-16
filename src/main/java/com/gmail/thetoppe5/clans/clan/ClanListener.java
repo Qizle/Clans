@@ -37,20 +37,4 @@ public class ClanListener implements Listener {
             }
         }
     }
-
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-    public void onDamage(EntityDamageByEntityEvent e) {
-        if (((e.getEntity() instanceof Player)) && ((e.getDamager() instanceof Player))) {
-            Player tar = (Player) e.getEntity();
-            Player damager = (Player) e.getDamager();
-            if (plugin.getEnabledWorlds().contains(tar.getWorld().getName().toLowerCase())) {
-                Clan damagerClan = Clan.getClan(damager.getUniqueId());
-                Clan tarClan = Clan.getClan(tar.getUniqueId());
-                if ((damagerClan != null) && (tarClan != null) && (damagerClan.getOwner().equals(tarClan.getOwner()))) {
-                    e.setCancelled(true);
-                    plugin.sendMessage(damager, "clan-member-damage");
-                }
-            }
-        }
-    }
 }
